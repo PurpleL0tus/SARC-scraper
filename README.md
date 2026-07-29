@@ -12,6 +12,8 @@ This repo includes pre-scraped output files: 9,280 JSON files (2022–23) and 1,
 
 The SARC online website outsources their server maintenance to Microsoft's Azure cloud web-services, which utilizes the JSON data structure to operate the website. Due to the public nature of the dataset, Azure had no verification process to acquire the JSON data even if you are not making a request through the website. The link format uses CDS codes to differentiate schools, making it quite simple to iterate through the list.
 
+> **Update (July 2026):** CDE migrated from `sarc-prod-api-west.azurewebsites.net` (now NXDOMAIN) to `api.sarconline.org` (still ASP.NET/Kestrel on Azure). The new endpoint behaves identically — no authentication required, same JSON schema, same CDS-based URL structure. The scraper has been updated accordingly.
+
 JSON data is much easier and simpler to manage and scrape — it is a lightweight text file with consistent formatting. The raw JSON data is quite literally a wall of text that fills your entire screen, so the scraper adds indents during the download to make it human readable; this has no effect on machine readability.
 
 ![JSON Structure](images/json_structure.png)
@@ -21,8 +23,6 @@ Of the ~19,750 schools in the Public School Directory, 9,280 JSON files were scr
 The JSON dataset is comprehensive in detail — it is literally the raw data of the webpage — but limited in the specific data points this study is looking for. It has an entire section at the top level dedicated to facility conditions, but it only contains self-reported facility quality ratings. The year a school was built is not one of the data points, though it is sometimes mentioned passingly in the school's background/history section.
 
 **The scraping takes about 13 hours each (about 26 hours for both online and pdf).** The bottleneck is not the internet connection but the artificial delays — the scraper takes a 2-second break between every request. Without that delay the scraping will disrupt Azure servers(SARC online) and crash the dept of CA education servers(SARC pdf), amounting to a DDoS attack. Even with the delay, use a VPN during scraping to avoid the school's IP address getting blacklisted.
-
-> **As of July 2026, the JSON scraper no longer works.** The original unprotected Azure backend (`sarc-prod-api-west.azurewebsites.net`) has been decommissioned — the domain returns NXDOMAIN. CDE has since migrated to `api.sarconline.org` (still ASP.NET/Kestrel, likely Azure under a custom domain), but the new endpoint blocks requests that do not originate from the frontend. The direct API access that made JSON scraping possible is gone. The 9,280 JSON files in `outputs/json/` are likely the only copy of this data in this format.
 
 The scraper encounters three scenarios:
 
@@ -38,7 +38,7 @@ The SARC website also structures its links using CDS codes, making it simple to 
 
 The scraper can only download a file if the "View Full SARC" button links directly to a PDF. It cannot download files where the button links to a website containing the PDF, or to a Google Drive. The missing coverage can be attributed to a combination of those cases, un-finalized reports, and non-compliance.
 
-> **Note:** The PDF scraper is still functional as of July 2026. After CDE's migration, the API moved to `api.sarconline.org` with `yearId=16` for 2023–24 data. The scraper has been updated accordingly — run it to collect a new batch of PDFs.
+> **Update (July 2026):** After CDE's migration, the API moved to `api.sarconline.org`. The scraper has been updated accordingly.
 
 Unlike the SARC online JSON, PDF formats are much more inconsistent. They contain a chart of self-reported facility quality and sometimes include the year the school was built. An LLM would likely be effective at extracting specific data points from these PDFs.
 
@@ -49,7 +49,7 @@ Unlike the SARC online JSON, PDF formats are much more inconsistent. They contai
 | Path | Description |
 |------|-------------|
 | `app.py` | Flask control panel — run scripts and view output in the browser |
-| `scrapers/online_scraper.py` | Downloads SARC JSON from the Azure API per school |
+| `scrapers/online_scraper.py` | Downloads SARC JSON per school |
 | `scrapers/pdf_scraper.py` | Downloads SARC PDFs per school |
 | `processors/extract_school.py` | JSON → school-level CSV |
 | `processors/extract_facilities.py` | JSON → facility inspection CSV |
@@ -87,7 +87,7 @@ Use a VPN before running either scraper.
 
 Run all scripts from the repo root.
 
-**Scrape SARC-Online JSON** (no longer functional as of July 2026, see note above):
+**Scrape SARC-Online JSON:**
 ```bash
 python scrapers/online_scraper.py
 # → outputs/json/{cds_code}.json

@@ -6,12 +6,8 @@ import time
 
 SCHOOL_DATA = "inputs/school_list.csv"
 ERRORS_FILE = "outputs/errors.txt"
-# Original Azure endpoint (2022-23, yearId=15) was decommissioned — domain returns NXDOMAIN.
-# CDE migrated to api.sarconline.org (still ASP.NET/Kestrel, likely Azure under a custom domain).
-# API_BASE = "https://sarc-prod-api-west.azurewebsites.net/api/school"
-# YEAR_ID = 15
 API_BASE = "https://api.sarconline.org/api/school"
-YEAR_ID = int(os.environ.get("YEAR_ID", 16))  # 15=2022-23, 16=2023-24, 17=2024-25
+YEAR_ID = int(os.environ.get("YEAR_ID", 15))  # 15=2022-23, 16=2023-24, 17=2024-25
 YEAR_STR = f"{YEAR_ID + 2007}-{str(YEAR_ID + 2008)[-2:]}"
 PDF_DIR = f"outputs/pdfs/{YEAR_STR}"
 
