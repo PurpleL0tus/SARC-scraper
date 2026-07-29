@@ -6,21 +6,6 @@ This repo includes pre-scraped output files: 9,280 JSON files (2022–23) and 1,
 
 ---
 
-## Setup
-
-```bash
-pip install -r requirements.txt
-python app.py
-```
-
-Then open `http://127.0.0.1:5000` in your browser. The control panel lets you run any script and see its output live. All scripts can also be run directly from the command line — see the Usage section below.
-
-Use a VPN before running either scraper.
-
-![Control Panel](images/control_panel.png)
-
----
-
 ## SARC-Online Scraper
 
 ![Azure Infrastructure](images/azure_infrastructure.png)
@@ -82,6 +67,21 @@ Unlike the SARC online JSON, PDF formats are much more inconsistent. They contai
 | `outputs/pdfs/` | Scraped PDF files (~800MB) |
 | `outputs/text/` | Extracted plain text |
 | `outputs/csv/` | Processed CSV tables |
+
+---
+
+## Setup
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+Then open `http://127.0.0.1:5000` in your browser. The control panel lets you run any script and see its output live. All scripts can also be run directly from the command line — see the Usage section below.
+
+Use a VPN before running either scraper.
+
+![Control Panel](images/control_panel.png)
 
 ---
 
