@@ -70,7 +70,7 @@ Unlike the SARC online JSON, PDF formats are much more inconsistent. They contai
 
 ---
 
-## Setup
+## UI Setup
 
 ```bash
 pip install -r requirements.txt
@@ -85,7 +85,7 @@ Use a VPN before running either scraper.
 
 ---
 
-## Usage
+## CLI Usage
 
 Run all scripts from the repo root.
 
