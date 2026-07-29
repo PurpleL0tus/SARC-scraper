@@ -42,8 +42,6 @@ The scraper can only download a file if the "View Full SARC" button links direct
 
 Unlike the SARC online JSON, PDF formats are much more inconsistent. They contain a chart of self-reported facility quality and sometimes include the year the school was built. An LLM would likely be effective at extracting specific data points from these PDFs.
 
-![Facility Extraction](images/facility_extraction.png)
-
 ---
 
 ## Project Structure
