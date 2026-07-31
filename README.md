@@ -22,7 +22,7 @@ Of the ~19,750 schools in the Public School Directory, 9,280 JSON files were scr
 
 The JSON dataset is comprehensive in detail — it is literally the raw data of the webpage — but limited in the specific data points this study is looking for. It has an entire section at the top level dedicated to facility conditions, but it only contains self-reported facility quality ratings. The year a school was built is not one of the data points, though it is sometimes mentioned passingly in the school's background/history section.
 
-**The scraping takes about 13 hours each (about 26 hours for both online and pdf).** The bottleneck is not the internet connection but the artificial delays — the scraper takes a 2-second break between every request. Without that delay the scraping will disrupt Azure servers(SARC online) and crash the dept of CA education servers(SARC pdf), amounting to a DDoS attack. Even with the delay, use a VPN during scraping to avoid the school's IP address getting blacklisted.
+**The scraping takes about 13 hours each (about 26 hours for both online and pdf).** The bottleneck is not the internet connection but the artificial delays — the scraper takes a 2-second break between every request. Without that delay the scraping will disrupt Azure servers amounting to a DDoS attack. Even with the delay, use a VPN during scraping to avoid the school's IP address getting blacklisted.
 
 The scraper encounters three scenarios:
 
