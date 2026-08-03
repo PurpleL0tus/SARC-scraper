@@ -12,7 +12,7 @@ This repo includes pre-scraped output files: 9,280 JSON files (2022–23) and 1,
 
 The SARC online website outsources their server maintenance to Microsoft's Azure cloud web-services, which utilizes the JSON data structure to operate the website. Due to the public nature of the dataset, Azure had no verification process to acquire the JSON data even if you are not making a request through the website. The link format uses CDS codes to differentiate schools, making it quite simple to iterate through the list.
 
-> **Update (July 2026):** CDE migrated from `sarc-prod-api-west.azurewebsites.net` (now NXDOMAIN) to `api.sarconline.org` (still ASP.NET/Kestrel on Azure). The new endpoint behaves identically — no authentication required, same JSON schema, same CDS-based URL structure. The scraper has been updated accordingly.
+> **Update (July 2026):** CDE migrated from `sarc-prod-api-west.azurewebsites.net` (now NXDOMAIN) to `api.sarconline.org` (still ASP.NET/Kestrel on Azure). The new endpoint behaves identically — no authentication required, same JSON schema, same CDS-based URI structure. The scraper has been updated accordingly.
 
 JSON data is much easier and simpler to manage and scrape — it is a lightweight text file with consistent formatting. The raw JSON data is quite literally a wall of text that fills your entire screen, so the scraper adds indents during the download to make it human readable; this has no effect on machine readability.
 
