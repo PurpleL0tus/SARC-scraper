@@ -12,23 +12,23 @@ This repo includes pre-scraped output files: 9,280 JSON files (2022–23) and 1,
 
 The SARC online website outsources their server maintenance to Microsoft's Azure cloud web-services, which utilizes the JSON data structure to operate the website. Due to the public nature of the dataset, Azure had no verification process to acquire the JSON data even if you are not making a request through the website. The link format uses CDS codes to differentiate schools, making it quite simple to iterate through the list.
 
-> **Update (July 2026):** CDE migrated from `sarc-prod-api-west.azurewebsites.net` (now NXDOMAIN) to `api.sarconline.org` (still ASP.NET/Kestrel on Azure). The new endpoint behaves identically — no authentication required, same JSON schema, same CDS-based URI structure. The scraper has been updated accordingly.
+> **Update (July 2026):** CDE migrated from `sarc-prod-api-west.azurewebsites.net` (now NXDOMAIN) to `api.sarconline.org` (still ASP.NET/Kestrel on Azure). The new endpoint behaves identically—no authentication required, same JSON schema, same CDS-based URI structure. The scraper has been updated accordingly.
 
-JSON data is much easier and simpler to manage and scrape — it is a lightweight text file with consistent formatting. The raw JSON data is quite literally a wall of text that fills your entire screen, so the scraper adds indents during the download to make it human readable; this has no effect on machine readability.
+JSON data is much easier and simpler to manage and scrape—it is a lightweight text file with consistent formatting. The raw JSON data is quite literally a wall of text that fills your entire screen, so the scraper adds indents during the download to make it human readable; this has no effect on machine readability.
 
 ![JSON Structure](images/json_structure.png)
 
 Of the ~19,750 schools in the Public School Directory, 9,280 JSON files were scraped, amounting to about **48% coverage** and **4.4GB** of data. SARC online seems to be a popular alternative to the PDF format. The scraper only scanned CDS codes present in `school_list.csv`, so if a CDS code is missing from that file, that school was missed.
 
-The JSON dataset is comprehensive in detail — it is literally the raw data of the webpage — but limited in the specific data points this study is looking for. It has an entire section at the top level dedicated to facility conditions, but it only contains self-reported facility quality ratings. The year a school was built is not one of the data points, though it is sometimes mentioned passingly in the school's background/history section.
+The JSON dataset is comprehensive in detail—it is literally the raw data of the webpage—but limited in the specific data points this study is looking for. It has an entire section at the top level dedicated to facility conditions, but it only contains self-reported facility quality ratings. The year a school was built is not one of the data points, though it is sometimes mentioned passingly in the school's background/history section.
 
-**The scraping takes about 13 hours each (about 26 hours for both online and pdf).** The bottleneck is not the internet connection but the artificial delays — the scraper takes a 2-second break between every request. Without that delay the scraping will disrupt Azure servers amounting to a DDoS attack. Even with the delay, use a VPN during scraping to avoid the school's IP address getting blacklisted.
+**The scraping takes about 13 hours each (about 26 hours for both online and pdf).** The bottleneck is not the internet connection but the artificial delays—the scraper takes a 2-second break between every request. Without that delay the scraping will disrupt Azure servers amounting to a DDoS attack. Even with the delay, use a VPN during scraping to avoid the school's IP address getting blacklisted.
 
 The scraper encounters three scenarios:
 
-1. A plain-text response: `"Cannot view report prior to finalization."` — They broke JSON standards for this error message, causing the website to only display the plain text. Since this scrapes 2022–23 reports, these will likely never be finalized.
-2. A valid JSON error: `"Object reference not set to an instance of an object."` — The link is invalid, indicating the school chose not to participate in the SARC online program.
-3. Valid JSON — downloaded and saved.
+1. A plain-text response: `"Cannot view report prior to finalization."`—They broke JSON standards for this error message, causing the website to only display the plain text. Since this scrapes 2022–23 reports, these will likely never be finalized.
+2. A valid JSON error: `"Object reference not set to an instance of an object."`—The link is invalid, indicating the school chose not to participate in the SARC online program.
+3. Valid JSON—downloaded and saved.
 
 ---
 
@@ -75,7 +75,7 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Then open `http://127.0.0.1:5000` in your browser. The control panel lets you run any script and see its output live. All scripts can also be run directly from the command line — see the Usage section below.
+Then open `http://127.0.0.1:5000` in your browser. The control panel lets you run any script and see its output live. All scripts can also be run directly from the command line—see the Usage section below.
 
 Use a VPN before running either scraper.
 
@@ -127,4 +127,4 @@ python inventory.py
 
 ## pdf_web_scraper
 
-`pdf_web_scraper/` is a general-purpose PDF web crawler not specific to SARC — it finds and downloads PDFs from any website by crawling pages. See `pdf_web_scraper/README.md` for usage. Released under the MIT license by its original author.
+`pdf_web_scraper/` is a general-purpose PDF web crawler not specific to SARC—it finds and downloads PDFs from any website by crawling pages. See `pdf_web_scraper/README.md` for usage. Released under the MIT license by its original author.
