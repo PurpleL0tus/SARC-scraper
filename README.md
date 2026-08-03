@@ -48,7 +48,7 @@ Unlike the SARC online JSON, PDF formats are much more inconsistent. They contai
 
 | Path | Description |
 |------|-------------|
-| `app.py` | Flask control panel — run scripts and view output in the browser |
+| `app.py` | Flask control panel, run scripts and view output in the browser |
 | `scrapers/online_scraper.py` | Downloads SARC JSON per school |
 | `scrapers/pdf_scraper.py` | Downloads SARC PDFs per school |
 | `processors/extract_school.py` | JSON → school-level CSV |
